@@ -142,28 +142,30 @@ class StubHubTracker:
         lowestPrice = self.findLowestPrice()
         # send initial price to client
         self.sendMessage(f"The initial lowest price for {self.findTitle()} is ${lowestPrice}")
-
+        num_checks = 0
         # case when a certain number of iterations is given
         if iter is not None:
             assert type(iter) is float or type(iter) is int
             count = 0
             while count < iter:
                 updatedPrice = self.findLowestPrice()
-                print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}")
+                print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}. This is check #{num_checks}")
                 if updatedPrice != lowestPrice:
                     self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
                     lowestPrice = updatedPrice
                 count += 1
+                num_checks += 1
                 time.sleep(delay)
             self.sendMessage(f"The maximum number of iterations has been reached. The last checked price was ${updatedPrice}")
         # case when no iteration limit is given
         else:
             while True:
                 updatedPrice = self.findLowestPrice()
-                print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}")
+                print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}. This is check #{num_checks}")
                 if updatedPrice != lowestPrice:
                     self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
                     lowestPrice = updatedPrice
+                num_checks += 1
                 time.sleep(delay)
 
     def sendMessage(self, message):
