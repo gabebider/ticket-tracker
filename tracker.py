@@ -76,6 +76,7 @@ class StubHubTracker:
         except Exception as e:
             print(f"\t*** ERROR: Could not connect to url: {self.url} ***")
             print(e)
+            self.sendMessage("**ERROR**. Unable to reach the given URL. The program is terminating.")
             exit()
 
         return data.content
@@ -156,6 +157,7 @@ class StubHubTracker:
                     lowestPrice = updatedPrice
                 count += 1
                 time.sleep(delay)
+            self.sendMessage(f"The maximum number of iterations has been reached. The last checked price was ${updatedPrice}")
         # case when no iteration limit is given
         else:
             while True:
@@ -192,4 +194,4 @@ class StubHubTracker:
 
 if __name__ == "__main__":
     tracker = StubHubTracker(URL)
-    tracker.trackPrice(0.5)
+    tracker.trackPrice(5)
