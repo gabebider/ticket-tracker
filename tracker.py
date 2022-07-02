@@ -14,6 +14,37 @@ TO_NUMBER = "+16504557978"
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 class StubHubTracker:
+    """
+    A class used to update the client whenever the lowest price of a StubHub event changes
+    
+    ...
+
+    Attributes
+    --------
+    url : str
+        the URL of the event that is being tracked
+
+    Methods
+    --------
+    getHtml()
+        returns the HTML of `self.url`
+
+    getSoup()
+        returns a soup object using `self.getHTML()`
+
+    findLowestPrice()
+        returns the current lowest price from the event at `self.url`
+
+    findTitle()
+        returns the title of the event at `self.url`
+
+    trackPrice(delay=1, iter=None)
+        checks the price every `delay` seconds for `iter` iterations. If no `iter` is given, then loops indefinitely
+
+    sendMessage(message)
+        texts from `FROM_NUMER` to `TO_NUMBER` the given `message`
+
+    """
     def __init__(self, url) -> None:
         """
         Parameters
@@ -29,8 +60,24 @@ class StubHubTracker:
         Return the HTML of self.url
 
         Uses the requests module to fetch the url
+
+        Raises
+        ------
+        Exception
+            If unable to connect to url
+
+        Return
+        -------
+        <class 'bytes'>
+            object representing the HTML of `self.url`
         """
-        data = requests.get(self.url)
+        try:
+            data = requests.get(self.url)
+        except Exception as e:
+            print(f"\t*** ERROR: Could not connect to url: {self.url} ***")
+            print(e)
+            exit()
+
         return data.content
 
     def getSoup(self):
@@ -58,11 +105,21 @@ class StubHubTracker:
         return lowestPrice
 
     def findTitle(self):
+        """"
+        Finds the webpage title
+
+        Webpage title doubles as the event title
+
+        Returns 
+        -------
+        str
+            title of the event
+        """
         soup = self.getSoup()
         title = soup.title.text
-        return title[0 : title.find(" - ")]
+        return title[0 : title.find(" Tickets - ")]
 
-    def trackPrice(self, delay, iter=None):
+    def trackPrice(self, delay=1, iter=None):
         """
         Tracks the price of the StubHub page
 
@@ -82,20 +139,28 @@ class StubHubTracker:
 
         """
         assert type(delay) is float or type(delay) is int
+        # init lowest price
         lowestPrice = self.findLowestPrice()
+        # send initial price to client
+        self.sendMessage(f"The initial lowest price for {self.findTitle()} is ${lowestPrice}")
+
+        # case when a certain number of iterations is given
         if iter is not None:
             assert type(iter) is float or type(iter) is int
             count = 0
             while count < iter:
                 updatedPrice = self.findLowestPrice()
+                print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}")
                 if updatedPrice != lowestPrice:
-                    self.sendMessage(f"The new lowest price is ${updatedPrice}")
+                    self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
                     lowestPrice = updatedPrice
                 count += 1
                 time.sleep(delay)
+        # case when no iteration limit is given
         else:
             while True:
                 updatedPrice = self.findLowestPrice()
+                print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}")
                 if updatedPrice != lowestPrice:
                     self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
                     lowestPrice = updatedPrice
