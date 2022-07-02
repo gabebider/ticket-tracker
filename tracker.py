@@ -184,12 +184,28 @@ class StubHubTracker:
         None
 
         """
-        message = client.messages \
+        client.messages \
             .create(
                     body=message,
                     from_=FROM_NUMBER,
                     to=TO_NUMBER
                 )
+        time.sleep(1)
+        # griffin
+        client.messages \
+            .create(
+                    body=message,
+                    from_=FROM_NUMBER,
+                    to="+18478309990"
+                )
+        # time.sleep(1)
+        # # mika
+        # message = client.messages \
+        #     .create(
+        #             body=message,
+        #             from_=FROM_NUMBER,
+        #             to="+16502081201"
+        #         )
                 
 
 if __name__ == "__main__":
