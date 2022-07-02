@@ -57,6 +57,11 @@ class StubHubTracker:
         lowestPrice = data['grid']['minPrice']
         return lowestPrice
 
+    def findTitle(self):
+        soup = self.getSoup()
+        title = soup.title.text
+        return title[0 : title.find(" - ")]
+
     def trackPrice(self, delay, iter=None):
         """
         Tracks the price of the StubHub page
@@ -77,42 +82,47 @@ class StubHubTracker:
 
         """
         assert type(delay) is float or type(delay) is int
+        lowestPrice = self.findLowestPrice()
         if iter is not None:
             assert type(iter) is float or type(iter) is int
             count = 0
             while count < iter:
-                lowestPrice = self.findLowestPrice()
-                print(lowestPrice)
+                updatedPrice = self.findLowestPrice()
+                if updatedPrice != lowestPrice:
+                    self.sendMessage(f"The new lowest price is ${updatedPrice}")
+                    lowestPrice = updatedPrice
                 count += 1
                 time.sleep(delay)
         else:
             while True:
-                lowestPrice = self.findLowestPrice()
-                print(lowestPrice)
+                updatedPrice = self.findLowestPrice()
+                if updatedPrice != lowestPrice:
+                    self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
+                    lowestPrice = updatedPrice
                 time.sleep(delay)
 
-        def sendMessage(self, message):
-            """
-            Sends a SMS from `FROM_NUMBER` to `TO_NUMBER` with body `message`
+    def sendMessage(self, message):
+        """
+        Sends a SMS from `FROM_NUMBER` to `TO_NUMBER` with body `message`
 
-            Uses the Twilio API to send a text message with a given `message`
+        Uses the Twilio API to send a text message with a given `message`
 
-            Paramters
-            ---------
-            message : str
-                the body of the text message
+        Paramters
+        ---------
+        message : str
+            the body of the text message
 
-            Returns 
-            -------
-            None
+        Returns 
+        -------
+        None
 
-            """
-            message = client.messages \
-                .create(
-                     body=message,
-                     from_=FROM_NUMBER,
-                     to=TO_NUMBER
-                 )
+        """
+        message = client.messages \
+            .create(
+                    body=message,
+                    from_=FROM_NUMBER,
+                    to=TO_NUMBER
+                )
                 
 
 if __name__ == "__main__":
