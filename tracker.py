@@ -1,6 +1,4 @@
 import json
-from pprint import pprint
-from tokenize import String
 import requests
 from bs4 import BeautifulSoup
 import time
