@@ -11,9 +11,9 @@ FROM_NUMBER = "+19897189196"
 TO_NUMBER = "+16504557978"
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
-class StubHubTracker:
+class SeatGeekTracker:
     """
-    A class used to update the client whenever the lowest price of a StubHub event changes
+    A class used to update the client whenever the lowest price of a SeatGeek event changes
     
     ...
 
@@ -48,7 +48,7 @@ class StubHubTracker:
         Parameters
         -----
         url : str
-            The url of the StubHub page to be tracked
+            The url of the SeatGeek page to be tracked
         """
         assert type(url) is str
         self.url = url
@@ -96,7 +96,7 @@ class StubHubTracker:
         Returns
         ------
         float
-            the lowest price of a StubHub event
+            the lowest price of a SeatGeek event
         """
         soup = self.getSoup()
 
@@ -124,7 +124,7 @@ class StubHubTracker:
 
     def trackPrice(self, delay=1, iter=None):
         """
-        Tracks the price of the StubHub page
+        Tracks the price of the SeatGeek page
 
         Checks the price every `delay` seconds and prints the price to console.
         Runs indefinitely unless an `iter` is given in which case it runs for `iter` times
@@ -213,5 +213,5 @@ class StubHubTracker:
                 
 
 if __name__ == "__main__":
-    tracker = StubHubTracker(URL)
+    tracker = SeatGeekTracker(URL)
     tracker.trackPrice(10)
