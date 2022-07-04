@@ -5,7 +5,8 @@ import time
 from twilio.rest import Client
 
 # URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-5-2022/event/105240066/"
-URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-5-2022/event/105239191/"
+# URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-5-2022/event/105239191/"
+URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-7-2022/event/105239195/"
 ACCOUNT_SID = open("account_sid.txt", "r").read()
 AUTH_TOKEN = open("auth_token.txt", "r").read()
 FROM_NUMBER = "+19897189196"
