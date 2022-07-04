@@ -114,9 +114,11 @@ class StubHubTracker:
         str
             title of the event
         """
+
         soup = self.getSoup()
-        title = soup.title.text
-        return title[0 : title.find(" Tickets - ")]
+        data = json.loads(soup.find("script", id="index-data").text)
+        title = data['eventName']
+        return title
 
     def trackPrice(self, delay=1, iter=None):
         """
@@ -192,20 +194,20 @@ class StubHubTracker:
                 )
         time.sleep(1)
         # griffin
-        client.messages \
-            .create(
-                    body=message,
-                    from_=FROM_NUMBER,
-                    to="+18478309990"
-                )
-        time.sleep(1)
-        # mika
-        message = client.messages \
-            .create(
-                    body=message,
-                    from_=FROM_NUMBER,
-                    to="+16502081201"
-                )
+        # client.messages \
+        #     .create(
+        #             body=message,
+        #             from_=FROM_NUMBER,
+        #             to="+18478309990"
+        #         )
+        # time.sleep(1)
+        # # mika
+        # message = client.messages \
+        #     .create(
+        #             body=message,
+        #             from_=FROM_NUMBER,
+        #             to="+16502081201"
+        #         )
                 
 
 if __name__ == "__main__":
