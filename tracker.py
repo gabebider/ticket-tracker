@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 import time
 from twilio.rest import Client
 
-URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-5-2022/event/105240066/"
+# URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-5-2022/event/105240066/"
+URL = "https://www.stubhub.com/outside-lands-music-festival-san-francisco-tickets-8-5-2022/event/105239191/"
 ACCOUNT_SID = open("account_sid.txt", "r").read()
 AUTH_TOKEN = open("auth_token.txt", "r").read()
 FROM_NUMBER = "+19897189196"
@@ -105,9 +106,9 @@ class StubHubTracker:
 
     def findTitle(self):
         """"
-        Finds the webpage title
+        Finds the title of the event being tracked
 
-        Webpage title doubles as the event title
+        ...
 
         Returns 
         -------
@@ -202,12 +203,12 @@ class StubHubTracker:
         #         )
         # time.sleep(1)
         # # mika
-        # message = client.messages \
-        #     .create(
-        #             body=message,
-        #             from_=FROM_NUMBER,
-        #             to="+16502081201"
-        #         )
+        message = client.messages \
+            .create(
+                    body=message,
+                    from_=FROM_NUMBER,
+                    to="+16502081201"
+                )
                 
 
 if __name__ == "__main__":
