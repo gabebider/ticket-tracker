@@ -141,7 +141,7 @@ class StubHubTracker:
         # init lowest price
         lowestPrice = self.findLowestPrice()
         # send initial price to client
-        self.sendMessage(f"The initial lowest price for {self.findTitle()} is ${lowestPrice}")
+        self.sendMessage(f"The initial lowest price for {self.findTitle()} is ${lowestPrice}. Find the event here: {self.url}")
         num_checks = 0
         # case when a certain number of iterations is given
         if iter is not None:
@@ -151,7 +151,7 @@ class StubHubTracker:
                 updatedPrice = self.findLowestPrice()
                 print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}. This is check #{num_checks}")
                 if updatedPrice != lowestPrice:
-                    self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
+                    self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}. Find the event here: {self.url}")
                     lowestPrice = updatedPrice
                 count += 1
                 num_checks += 1
@@ -163,7 +163,7 @@ class StubHubTracker:
                 updatedPrice = self.findLowestPrice()
                 print(f"The lowest price is {lowestPrice} and the newest fetched price is {updatedPrice}. This is check #{num_checks}")
                 if updatedPrice != lowestPrice:
-                    self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}")
+                    self.sendMessage(f"The new lowest price for {self.findTitle()} is ${updatedPrice}. Find the event here: {self.url}")
                     lowestPrice = updatedPrice
                 num_checks += 1
                 time.sleep(delay)
@@ -198,7 +198,7 @@ class StubHubTracker:
                     from_=FROM_NUMBER,
                     to="+18478309990"
                 )
-        # time.sleep(1)
+        time.sleep(1)
         # # mika
         # message = client.messages \
         #     .create(
@@ -210,4 +210,4 @@ class StubHubTracker:
 
 if __name__ == "__main__":
     tracker = StubHubTracker(URL)
-    tracker.trackPrice(5)
+    tracker.trackPrice(10)
