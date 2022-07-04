@@ -40,7 +40,7 @@ class StubHubTracker:
         checks the price every `delay` seconds for `iter` iterations. If no `iter` is given, then loops indefinitely
 
     sendMessage(message)
-        texts from `FROM_NUMER` to `TO_NUMBER` the given `message`
+        texts from `FROM_NUBMER` to `TO_NUMBER` the given `message`
 
     """
     def __init__(self, url) -> None:
@@ -55,7 +55,7 @@ class StubHubTracker:
 
     def getHTML(self):
         """
-        Return the HTML of self.url
+        Return the HTML of `self.url`
 
         Uses the requests module to fetch the url
 
@@ -89,7 +89,7 @@ class StubHubTracker:
 
     def findLowestPrice(self):
         """
-        Finds the lowest price from self.url
+        Finds the lowest price from `self.url`
 
         Uses a soup object to scrape the webpage and find the lowest price
 
