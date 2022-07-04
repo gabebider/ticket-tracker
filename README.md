@@ -1,5 +1,5 @@
 # Ticket Tracker by Gabe Bider
-This program will use the Twilio API to text `TO_NUMBER` whenever the lowest price of a given event changes, whether it increases or decreases. It will also text `TO_NUMBER` when the maximum nunber of iterations is reached or if the program fails to fetch `self.url`.
+This program will use the Twilio API to text `TO_NUMBER` whenever the lowest price of a given event changes, whether it increases or decreases. It can run indeifitely or for a certain number of iterations. It will also text `TO_NUMBER` when the maximum nunber of iterations is reached or if the program fails to fetch `self.url`.
 
 ## TODO:
 Update `FROM_NUMBER` to be your number from the Twilio SMS API and update `TO_NUMBER` to be the number you wish to notify.
