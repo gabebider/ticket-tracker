@@ -199,13 +199,13 @@ class StubHubTracker:
                     to="+18478309990"
                 )
         time.sleep(1)
-        # # mika
-        # message = client.messages \
-        #     .create(
-        #             body=message,
-        #             from_=FROM_NUMBER,
-        #             to="+16502081201"
-        #         )
+        # mika
+        message = client.messages \
+            .create(
+                    body=message,
+                    from_=FROM_NUMBER,
+                    to="+16502081201"
+                )
                 
 
 if __name__ == "__main__":
