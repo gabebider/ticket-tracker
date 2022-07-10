@@ -129,7 +129,7 @@ class SeatGeekTracker:
         Checks the price every `delay` seconds and prints the price to console.
         Runs indefinitely unless an `iter` is given in which case it runs for `iter` times
 
-        Paramters
+        Parameters
         ---------
         delay : float | int
             the amount of seconds to wait in between checks
@@ -178,7 +178,7 @@ class SeatGeekTracker:
 
         Uses the Twilio API to send a text message with a given `message`
 
-        Paramters
+        Parameters
         ---------
         message : str
             the body of the text message
