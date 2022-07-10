@@ -101,8 +101,13 @@ class StubHubTracker:
             the lowest price of a StubHub event
         """
         soup = self.getSoup()
-        data = json.loads(soup.find("script", id="index-data").text)
-        lowestPrice = data['grid']['minPrice']
+        
+        try:
+            data = json.loads(soup.find("script", id="index-data").text)
+            lowestPrice = data['grid']['minPrice']
+        except:
+            self.sendMessage(f"**ERROR**. Unable to find the lowest price. The program is terminating. {self.url}")
+            exit()
         return lowestPrice
 
     def findTitle(self):

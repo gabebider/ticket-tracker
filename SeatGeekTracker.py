@@ -99,9 +99,14 @@ class SeatGeekTracker:
             the lowest price of a SeatGeek event
         """
         soup = self.getSoup()
-
-        data = json.loads(soup.find("script", id="ssr-app-context").text)
-        lowestPrice = data["initialProps"]["event"]["stats"]["variants"][0]["stats"]["sg_base_price"]["min"]
+        try:
+            data = json.loads(soup.find("script", id="ssr-app-context").text)
+            lowestPrice = data["initialProps"]["event"]["stats"]["variants"][0]["stats"]["sg_base_price"]["min"]
+        
+        except:
+            self.sendMessage(f"**ERROR**. Unable to find the lowest price. The program is terminating. {self.url}")
+            exit()
+        
         # print(lowestPrice)
         return lowestPrice
 
